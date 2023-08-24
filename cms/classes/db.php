@@ -1,18 +1,5 @@
 <?php
 
-
-/*
-|--------------------------------------------------------------------------
-| Classe Database
-|--------------------------------------------------------------------------
-|
-| Con questa classe stiamo settando i parametri per connessione a database
-| Ricordati di variare i parametri username, password, dbname e servername.
-| Per info su classi e script hack@spritecoder.com 
-|
-*/
-
-
 class Database {
 
 private $servername;
@@ -42,8 +29,32 @@ public function getConnection() {
     return $this->conn; 
 }
 }
-     
-//istanza della classe
+
+class CreateTable {
+
+private $conn;
+
+public function __construct($conn) {
+    $this->conn = $conn;
+}
+
+public function createTable() {
+    try {
+        $sql = "CREATE TABLE IF NOT EXISTS Utenti (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(30) NOT NULL,
+            cognome VARCHAR(30) NOT NULL,
+            email VARCHAR(50),
+            reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )";
+
+        $this->conn->exec($sql);
+        echo "Tabella Utenti creata con successo!";
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+}
 
 $servername = "localhost";
 $username = "root";
@@ -54,6 +65,9 @@ $database = new Database($servername, $username, $password, $dbname);
 $database->connect();
 
 $conn = $database->getConnection(); 
+
+$createTable = new CreateTable($conn);
+$createTable->createTable();
 
 
 ?>
