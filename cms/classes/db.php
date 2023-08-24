@@ -1,5 +1,18 @@
 <?php
 
+
+/*
+|--------------------------------------------------------------------------
+| Classe Database
+|--------------------------------------------------------------------------
+|
+| Con questa classe stiamo settando i parametri per connessione a database
+| Ricordati di variare i parametri username, password, dbname e servername.
+| Per info su classi e script hack@spritecoder.com 
+|
+*/
+
+
 class Database {
 
 private $servername;
